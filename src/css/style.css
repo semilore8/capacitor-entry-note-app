@@ -1,0 +1,122 @@
+:root {
+  --font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  --bg-color: #eee;
+  --secondary-bg-color: #ffffff;
+  --primary-color: rgb(30, 94, 30);
+}
+
+@font-face {
+  font-family: "Lato";
+  src: url("../assets/font/Lato-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family);
+}
+
+.main-con {
+  background-color: var(--bg-color);
+  min-height: 100vh;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.top-header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.top-header > img {
+  width: 10rem;
+  height: auto;
+}
+
+.top-nav {
+  margin-top: 1rem;
+  padding-bottom: 16px;
+  border-bottom: 2.5px solid var(--secondary-bg-color);
+}
+.top-nav > .top-nav-ul {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.top-nav-img {
+  margin-right: 1rem;
+  font-size: 1.2rem;
+  width: max-content;
+  width: max-content;
+}
+.top-nav-img > img {
+  width: 3.2rem;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.content-con {
+  padding: 12px;
+  min-width: 90%;
+  background-color: var(--secondary-bg-color);
+  width: 90%;
+  border-radius: 12px;
+  margin-top: 26px;
+}
+.content-list {
+  display: grid;
+  grid-template-columns: 30px 2fr 60px;
+  gap: 20px;
+  border-bottom: 1px solid var(--bg-color);
+  padding: 12px;
+}
+.content-list > img {
+  width: 1.5rem;
+}
+.content-main-title {
+  width: 100%;
+  font-weight: bold;
+  font-size: 1.1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.expand-note-icon {
+  width: 1.2rem;
+}
+.notes-total {
+  text-align: right;
+}
+.notes-total > p {
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: 12px;
+}
+
+/* //add note button */
+
+.add-note-btn {
+  position: fixed;
+  background-color: transparent;
+  bottom: 25px;
+  right: 25px;
+}
+
+.add-note-btn > img {
+  width: 4rem;
+  background: transparent;
+  border-radius: 50%;
+}
+
+.hide {
+  display: none;
+}

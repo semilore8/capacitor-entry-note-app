@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">cnote</string>
+    <string name="title_activity_main">cnote</string>
+    <string name="package_name">come.emmanueldg.cnote</string>
+    <string name="custom_url_scheme">come.emmanueldg.cnote</string>
+</resources>
