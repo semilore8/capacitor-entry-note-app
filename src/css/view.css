@@ -1,0 +1,126 @@
+/* views and view content */
+.view-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 250px;
+
+  justify-content: space-evenly;
+}
+
+/* pop up page view  */
+.pop-up-page {
+  min-height: 250px;
+  z-index: 5;
+  padding: 12px;
+  width: 80%;
+  height: fit-content;
+  background-color: var(--color-white);
+  border-radius: 8px;
+  position: fixed;
+  max-width: 768px;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+}
+
+.pop-up-top-nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--color-eee);
+}
+
+.pop-up-top-nav > .pop-up-title {
+  font-weight: bold;
+  font-size: 1.8rem;
+  color: var(--primary-color);
+}
+.pop-up-top-nav > img {
+  width: 25px;
+}
+
+/* //add note view  */
+
+.add-note-type {
+  margin: 25px;
+}
+
+.add-note-btn {
+  position: fixed;
+  background-color: transparent;
+  bottom: 25px;
+  right: 25px;
+}
+.add-note-btn > img {
+  width: 4rem;
+  background: transparent;
+  border-radius: 50%;
+}
+
+/* //details view  */
+.details-credit {
+  border-left: 2px solid #0d471a;
+}
+.details-debit {
+  border-left: 2px solid #d93333;
+}
+
+.details-type-date {
+  width: 100%;
+  text-align: left;
+  padding-top: 25px;
+  padding-left: 25px;
+
+  font-size: 0.8rem;
+  color: var(--primary-color);
+}
+.details-note-input-amount {
+  text-align: right;
+}
+
+.details-note-type {
+  font-weight: bold;
+  font-size: 1rem;
+}
+.details-note-options {
+  margin-top: 26px;
+}
+
+.details-note-input-amount,
+.details-note-input-description {
+  font-size: 2.2rem;
+}
+.confirmation-delete-message {
+  margin: 10px;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+.details-note-options,
+.details-note-delete-options {
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.delete-opt-note-btn {
+  height: 40px;
+  width: 100px;
+  margin: 20px;
+  color: var(--color-white);
+  background-color: var(--primary-color);
+  border-radius: 12px;
+  border: none;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 2px;
+}
+.delete-yes-btn {
+  background-color: #d93333;
+}
+.delete-note-btn {
+  background-color: #d93333;
+}

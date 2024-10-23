@@ -1,8 +1,9 @@
 :root {
   --font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  --bg-color: #eee;
-  --secondary-bg-color: #ffffff;
-  --primary-color: rgb(30, 94, 30);
+  --color-eee: #eee;
+  --color-white: #ffffff;
+  --primary-color: #333;
+  --color-black: #000;
 }
 
 @font-face {
@@ -15,49 +16,32 @@
 * {
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
   font-family: var(--font-family);
 }
 
+/* //main page and container */
 .main-con {
-  background-color: var(--bg-color);
+  background-color: var(--color-eee);
   min-height: 100vh;
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 25px;
+  padding-bottom: 50px;
+  max-width: 768px;
+  margin: auto;
 }
 
+/* //top header and logo */
 .top-header {
   width: 100%;
   display: flex;
   justify-content: center;
 }
-
 .top-header > img {
-  width: 10rem;
+  width: 120px;
   height: auto;
 }
 
-.top-nav {
-  margin-top: 1rem;
-  padding-bottom: 16px;
-  border-bottom: 2.5px solid var(--secondary-bg-color);
-}
-.top-nav > .top-nav-ul {
-  list-style: none;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-}
-
-.top-nav-img {
-  margin-right: 1rem;
-  font-size: 1.2rem;
-  width: max-content;
-  width: max-content;
-}
-.top-nav-img > img {
-  width: 3.2rem;
-}
-
+/* // main container content */
 .main-content {
   display: flex;
   flex-direction: column;
@@ -66,17 +50,25 @@
 .content-con {
   padding: 12px;
   min-width: 90%;
-  background-color: var(--secondary-bg-color);
+  background-color: var(--color-white);
   width: 90%;
   border-radius: 12px;
   margin-top: 26px;
 }
 .content-list {
   display: grid;
-  grid-template-columns: 30px 2fr 60px;
-  gap: 20px;
-  border-bottom: 1px solid var(--bg-color);
+  grid-template-columns: 48px 2fr 68px;
+  gap: 10px;
+  border-bottom: 1px solid var(--color-eee);
   padding: 12px;
+}
+.content-list-debit {
+  border-left: 2px solid #d93333;
+  margin-bottom: 12px;
+}
+.content-list-credit {
+  border-left: 2px solid #0d471a;
+  margin-bottom: 12px;
 }
 .content-list > img {
   width: 1.5rem;
@@ -90,6 +82,9 @@
   justify-content: center;
   margin-bottom: 10px;
 }
+.content-main-title > span {
+  margin: 5px;
+}
 .expand-note-icon {
   width: 1.2rem;
 }
@@ -102,21 +97,49 @@
   padding: 12px;
 }
 
-/* //add note button */
-
-.add-note-btn {
-  position: fixed;
-  background-color: transparent;
-  bottom: 25px;
-  right: 25px;
+.empty-note {
+  width: 100%;
+  justify-content: center;
+}
+.empty-note-text {
+  font-size: 16px;
+  text-align: center;
+  margin: 25px;
 }
 
-.add-note-btn > img {
-  width: 4rem;
-  background: transparent;
-  border-radius: 50%;
+.new-note {
+  animation: 1s swipeIn linear;
 }
 
-.hide {
+.plus-debit-icon,
+.minus-debit-icon {
+  width: 16px;
+}
+
+@keyframes swipeIn {
+  0% {
+    margin-left: 50vh;
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+    margin-left: 0px;
+  }
+}
+
+.delete-note {
+  animation: 1s fadeOut linear;
   display: none;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    display: flex;
+  }
+
+  100% {
+    opacity: 0;
+    display: none;
+  }
 }

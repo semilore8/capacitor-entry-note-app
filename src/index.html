@@ -3,71 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>cnote</title>
+    <title>entryNote</title>
     <link rel="stylesheet" href="./css/style.css" />
-    <script src="./js/controller/controller.js"></script>
+    <link rel="stylesheet" href="./css/universal.css" />
+    <link rel="stylesheet" href="./css/view.css" />
+    <script src="./js/controller/controller.js" type="module"></script>
   </head>
   <body>
     <div class="main-con">
       <header class="top-header">
-        <img src="./assets/logo.png" alt="cnote" />
+        <img src="./assets/entryNote.svg" alt="entryNote" />
       </header>
 
-      <nav class="top-nav">
-        <ul class="top-nav-ul">
-          <li class="top-nav-img">
-            <img src="./assets/icons/notes-fill.svg" alt="notes" />
-          </li>
-          <li class="top-nav-img">
-            <img src="./assets/icons/calculator.svg" alt="calculator" />
-          </li>
-        </ul>
-      </nav>
-
-
-      <!-- //notes page -->
+      <!-- //overlay -->
+      <main class="overlay hide"></main>
+      <!-- //main page -->
       <main class="main-content">
-        
-        <section class="notes-content-con content-con">
+        <section class="debit-notes-content-con content-con">
           <article class="notes-content-main-title content-main-title">
-            <span>NOTES</span
-            ><img
-              src="./assets/icons/arrow-down.svg"
-              class="expand-note-icon"
-              alt="expand"
+            <img
+              src="./assets/icons/debit-minus.svg"
+              class="minus-debit-icon"
+              alt="-"
             />
-          </article>
-          <article class="hide content-container">
-          <article class="notes-content-list content-list">
-            <img src="./assets/icons/file.svg" alt="file" />
-            <p class="notes-content-title content-title">Joshua</p>
-            <p class="notes-content-amount content-amount">(₦)3000</p>
-          </article>
-          <article class="notes-content-list content-list">
-            <img src="./assets/icons/file.svg" alt="file" />
-            <p class="notes-content-title content-title">Malik</p>
-            <p class="notes-content-amount content-amount">(₦)4800</p>
-          </article>
-          <article class="notes-content-list content-list">
-            <img src="./assets/icons/file.svg" alt="file" />
-            <p class="notes-content-title content-title">Anuoluwa</p>
-            <p class="notes-content-amount content-amount">(₦)6050</p>
-          </article>
-          <article class="notes-content-list content-list">
-            <img src="./assets/icons/file.svg" alt="file" />
-            <p class="notes-content-title content-title">Joshua</p>
-            <p class="notes-content-amount content-amount">(₦)3000</p>
-          </article>
-          <article class="notes-total">
-            <p>Total : <span id="total-notes-amount">(₦)30000</span></p>
-          </article>
-          <article class="hide content-container">
-
-        </section>
-
-        <section class="calc-content-con content-con">
-          <article class="notes-content-main-title content-main-title">
-            <span>Calc-note</span
+            <span> Debit </span
             ><img
               src="./assets/icons/arrow-down.svg"
               class="expand-note-icon"
@@ -75,23 +34,120 @@
             />
           </article>
 
-          <article class="hide content-container">
-            <article class="calc-content-list content-list">
-              <img src="./assets/icons/calculator.svg" alt="calculator" />
-              <p class="calc-content-title content-title">Wednessday</p>
-              <p class="calc-content-amount content-amount">(₦)3000</p>
-            </article>
-            <article class="calc-content-list content-list">
-              <img src="./assets/icons/calculator.svg" alt="calculator" />
-              <p class="calc-content-title content-title">total gain</p>
-              <p class="calc-content-amount content-amount">(₦)4800</p>
+          <article class="content-container">
+            <article class="empty-note">
+              <img
+                src="./assets/icons/loader.svg"
+                alt="loader"
+                class="loader"
+              />
             </article>
           </article>
         </section>
 
-        <section class="add-note-btn">
-          <img src="./assets/icons/plus.svg" alt="addnote" />
+        <section class="credit-notes-content-con content-con">
+          <article class="notes-content-main-title content-main-title">
+            <img
+              src="./assets/icons/credit-plus.svg"
+              class="plus-debit-icon"
+              alt="-"
+            />
+            <span> Credit </span
+            ><img
+              src="./assets/icons/arrow-down.svg"
+              class="expand-note-icon"
+              alt="expand"
+            />
+          </article>
+
+          <article class="content-container">
+            <article class="empty-note">
+              <img
+                src="./assets/icons/loader.svg"
+                alt="loader"
+                class="loader"
+              />
+            </article>
+          </article>
         </section>
+      </main>
+
+      <!-- plusicon add note btn  -->
+      <main class="add-note-btn">
+        <img src="./assets/icons/plus.svg" alt="addnote" />
+      </main>
+
+      <!-- addnote view -->
+
+      <main class="add-note-view-con pop-up-page hide">
+        <article class="pop-up-top-nav">
+          <p class="pop-up-title">Add-Note</p>
+          <img
+            src="./assets/icons/cancel.svg"
+            alt="cancel"
+            class="cancelPopupBtn"
+          />
+        </article>
+        <article class="add-note-view-content view-content">
+          <input
+            type="text"
+            class="add-note-input-description input-underline"
+            placeholder="Description"
+          />
+          <input
+            type="number"
+            class="add-note-input-amount input-underline"
+            placeholder="Amount"
+          />
+          <select class="select-type add-note-type">
+            <optgroup>
+              <option value="debit">Debit</option>
+              <option value="credit">Credit</option>
+            </optgroup>
+          </select>
+          <button type="button" class="save-note-btn btn-primary">Save</button>
+        </article>
+      </main>
+
+      <!-- details view  -->
+      <main class="details-note-view-con pop-up-page hide">
+        <article class="pop-up-top-nav">
+          <p class="pop-up-title">Details</p>
+          <img
+            src="./assets/icons/cancel.svg"
+            alt="cancel"
+            class="cancelPopupBtn"
+          />
+        </article>
+
+        <article
+          class="details-note-view-content details-debit view-content"
+        ></article>
+
+        <article class="details-note-options flex hide">
+          <button type="button" class="delete-note-btn btn-primary">
+            Delete
+          </button>
+          <button type="button" class="edit-note-btn btn-primary">Edit</button>
+        </article>
+
+        <article class="details-note-confirmation-options hide">
+          <p class="confirmation-delete-message">
+            Are you sure you want to delete ?
+          </p>
+
+          <article class="details-note-delete-options flex">
+            <button
+              type="button"
+              class="delete-no-note-btn delete-opt-note-btn"
+            >
+              No
+            </button>
+            <button type="button" class="delete-yes-btn delete-opt-note-btn">
+              Yes
+            </button>
+          </article>
+        </article>
       </main>
     </div>
   </body>
