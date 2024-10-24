@@ -1,10 +1,5 @@
-/* //hide class */
-.hide {
-  display: none;
-}
-.flex {
-  display: flex;
-}
+
+
 
 /* //no scroll class  */
 .no-scroll {
@@ -16,11 +11,17 @@
   z-index: 5;
 }
 
+/* // mini icons*/
+.mini-icon{
+  width: 20px;
+  margin-right: 4px;
+}
 /* //.loader */
 .loader {
   width: 50px;
   animation: 2s loaderAnimate linear infinite;
 }
+
 
 @keyframes loaderAnimate {
   0% {
@@ -53,6 +54,8 @@
   border: none;
   border-radius: 10px;
   font-size: 1rem;
+  display: flex;
+  justify-content: center;
 }
 
 /* //input underline */

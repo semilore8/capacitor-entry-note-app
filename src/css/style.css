@@ -107,39 +107,41 @@
   margin: 25px;
 }
 
-.new-note {
-  animation: 1s swipeIn linear;
-}
-
 .plus-debit-icon,
 .minus-debit-icon {
   width: 16px;
 }
 
-@keyframes swipeIn {
+.new-note {
+  animation: 1s shrinkIn linear;
+}
+
+@keyframes shrinkIn {
   0% {
-    margin-left: 50vh;
+    scale: 0.1;
     opacity: 0.4;
   }
   100% {
+    scale: 1;
     opacity: 1;
-    margin-left: 0px;
   }
 }
 
 .delete-note {
-  animation: 1s fadeOut linear;
+  animation: 1s shrinkOut linear;
   display: none;
 }
 
-@keyframes fadeOut {
+@keyframes shrinkOut {
   0% {
     opacity: 1;
+    scale: 1;
     display: flex;
   }
 
   100% {
     opacity: 0;
+    scale: 0;
     display: none;
   }
 }

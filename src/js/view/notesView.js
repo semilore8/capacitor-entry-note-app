@@ -1,4 +1,3 @@
-import noteListIcon from "../../assets/icons/file.svg";
 import { deleteById, insertToElement } from "../configandHelper/helper";
 import View from "./view";
 

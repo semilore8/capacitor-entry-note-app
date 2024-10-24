@@ -11,36 +11,73 @@ class AddNoteView extends View {
   #typeInputEl = document.querySelector(".add-note-type");
 
   #messages = {
-    error: "Input a description and amount!",
-    success: "Note added successfully!",
+    error: "Input a valid description and amount!",
+    success: "Note added",
   };
 
   #data = {};
 
-  showView() {
-    this.#addNoteBtn.addEventListener("click", this._displayView.bind(this));
+  showView(deviceObject) {
+    this.#addNoteBtn.addEventListener(
+      "click",
+      this.#showViewHandler.bind(this, deviceObject)
+    );
+  }
+
+  #showViewHandler(deviceObject) {
+    this._displayView();
+    this._backBtnHandler(deviceObject);
+  }
+
+  async validateNoteInputs(descEl, amountEl, errorMessage) {
+    try {
+      if (
+        descEl.value.trim() === "" ||
+        amountEl.value.trim() === "" ||
+        amountEl.value.trim() < this._variables.zero
+      ) {
+        await this._showMessage(errorMessage);
+        return false;
+      }
+
+      return true;
+    } catch (e) {
+      this._showMessage(e);
+    }
+  }
+
+  generateNoteData(descEl, amountEl, type, id, updateHistory = undefined) {
+    return {
+      description: upperFistChar(descEl.value),
+      amount: amountEl.value.trim(),
+      type: type.value,
+      timestamp: new Date().toISOString(),
+      id: id,
+      updateHistory,
+    };
   }
 
   async saveAndValidateInput(handler) {
     try {
       //validate input
       if (
-        this.#descriptionInputEl.value.trim() === "" ||
-        this.#amountInputEl.value.trim() === "" ||
-        this.#amountInputEl.value.trim() < this._variables.zero
+        !(await this.validateNoteInputs(
+          this.#descriptionInputEl,
+          this.#amountInputEl,
+          this.#messages.error
+        ))
       )
-        return await this._showMessage(this.#messages.error);
+        return;
 
       //generate the notes data for storage
-      this.#data = {
-        description: upperFistChar(this.#descriptionInputEl.value),
-        amount: this.#amountInputEl.value.trim(),
-        type: this.#typeInputEl.value,
-        timestamp: new Date().toISOString(),
-        id: Date.now(),
-        updateTimestamp: undefined,
-      };
+      this.#data = this.generateNoteData(
+        this.#descriptionInputEl,
+        this.#amountInputEl,
+        this.#typeInputEl,
+        Date.now()
+      );
 
+      console.log(this.#data);
       handler(this.#data);
 
       //clear inputs fields

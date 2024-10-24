@@ -89,6 +89,7 @@
 }
 .details-note-options {
   margin-top: 26px;
+  display: flex;
 }
 
 .details-note-input-amount,
@@ -104,11 +105,10 @@
 .details-note-delete-options {
   flex-direction: row;
   justify-content: space-between;
+  display: flex;
 }
 
 .delete-opt-note-btn {
-  height: 40px;
-  width: 100px;
   margin: 20px;
   color: var(--color-white);
   background-color: var(--primary-color);
@@ -123,4 +123,19 @@
 }
 .delete-note-btn {
   background-color: #d93333;
+}
+.details-note-edit-options{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 25px;
+}
+
+
+
+/* ///////////////////////////////////////
+ */
+ /* //hide class */
+.hide {
+  display: none;
 }

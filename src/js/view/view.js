@@ -4,7 +4,6 @@ class View {
   _overlayEl = document.querySelector(".overlay");
   #htmlElement = document.querySelector("html");
 
-  #exitApp = true;
   _variables = {
     zero: 0,
     beforeEnd: "beforeend",
@@ -33,26 +32,18 @@ class View {
 
     //cancel btn click handler
     this.#cancelBtnListener();
-    this.#exitApp = false;
   }
   //hide view
   _hideView() {
     this._hideOverlay();
     this._parentElement.classList.add(this._variables.hideClass);
 
-    this.#exitApp = true;
+    this._resetAllOptions?.();
   }
 
-  //get exit app state
-  backNavBtnHandler() {
-    console.log(this.#exitApp);
-    App.addListener(
-      "backButton",
-      function () {
-        if (this.#exitApp) App.exitApp();
-        else this._hideView();
-      }.bind(this)
-    );
+  _backBtnHandler(deviceObj) {
+    deviceObj.exitApp = false;
+    deviceObj.currentView = this;
   }
 
   #cancelBtnListener() {
@@ -66,7 +57,7 @@ class View {
     await Toast.show({
       text: (type === false ? "❌ " : "") + message,
       duration: "long",
-      position: "top",
+      position: "bottom",
     });
   }
 }

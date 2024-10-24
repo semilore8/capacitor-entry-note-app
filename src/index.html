@@ -6,7 +6,8 @@
     <title>entryNote</title>
     <link rel="stylesheet" href="./css/style.css" />
     <link rel="stylesheet" href="./css/universal.css" />
-    <link rel="stylesheet" href="./css/view.css" />
+    <link rel="stylesheet" href="./css/view.css" />   
+
     <script src="./js/controller/controller.js" type="module"></script>
   </head>
   <body>
@@ -105,7 +106,9 @@
               <option value="credit">Credit</option>
             </optgroup>
           </select>
-          <button type="button" class="save-note-btn btn-primary">Save</button>
+          <button type="button" class="save-note-btn btn-primary">
+            <img src="./assets/icons/save-icon.svg" alt="+" class="mini-icon">
+            Save</button>
         </article>
       </main>
 
@@ -124,11 +127,14 @@
           class="details-note-view-content details-debit view-content"
         ></article>
 
-        <article class="details-note-options flex hide">
+        <article class="details-note-options">
           <button type="button" class="delete-note-btn btn-primary">
+            <img src="./assets/icons/delete.svg" alt="--" class="mini-icon">
             Delete
           </button>
-          <button type="button" class="edit-note-btn btn-primary">Edit</button>
+          <button type="button" class="edit-note-btn btn-primary">
+            <img src="./assets/icons/edit.svg" alt="+" class="mini-icon">
+            Edit</button>
         </article>
 
         <article class="details-note-confirmation-options hide">
@@ -136,18 +142,33 @@
             Are you sure you want to delete ?
           </p>
 
-          <article class="details-note-delete-options flex">
+          <article class="details-note-delete-options ">
             <button
               type="button"
-              class="delete-no-note-btn delete-opt-note-btn"
+              class="delete-no-note-btn delete-opt-note-btn btn-primary"
             >
+            <img src="./assets/icons/no-icon.svg" alt="+" class="mini-icon">
               No
             </button>
-            <button type="button" class="delete-yes-btn delete-opt-note-btn">
+            <button type="button" class="delete-yes-btn delete-opt-note-btn btn-primary">
+              <img src="./assets/icons/yes-icon.svg" alt="+" class="mini-icon">
               Yes
             </button>
+          </article> 
+        </article> 
+        <article class="details-note-edit-options hide">
+          <button
+          type="button"
+          class="edit-cancel-note-btn edit-opt-note-btn btn-primary"
+        >
+        <img src="./assets/icons/no-icon.svg" alt="+" class="mini-icon">
+          Cancel
+        </button>
+            <button type="button" class="edit-yes-btn edit-opt-note-btn btn-primary">
+              <img src="./assets/icons/save-icon.svg" alt="+" class="mini-icon">
+              Save
+            </button>
           </article>
-        </article>
       </main>
     </div>
   </body>

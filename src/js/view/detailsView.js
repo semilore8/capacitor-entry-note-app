@@ -7,27 +7,36 @@ class DetailsView extends View {
 
   #notesConEl = this._parentElement.querySelector(".details-note-view-content");
   #noDeleteBtnEl = document.querySelector(".delete-no-note-btn");
+  #editBtn = this._parentElement.querySelector(".edit-note-btn");
+  #editCancelBtn = this._parentElement.querySelector(".edit-cancel-note-btn");
   #deleteBtn = this._parentElement.querySelector(".delete-note-btn");
   #yesDeleteBtn = this._parentElement.querySelector(".delete-yes-btn");
   #delOptConEl = this._parentElement.querySelector(
     ".details-note-confirmation-options"
   );
-  #delParentConEl = this._parentElement.querySelector(".details-note-options");
+  #editOptConEl = this._parentElement.querySelector(
+    ".details-note-edit-options"
+  );
+
+  #optionsConEl = this._parentElement.querySelector(".details-note-options");
 
   #successMessage = "Note deleted";
   #data = {};
 
   constructor() {
     super();
-    this.#noDeleteHandler();
+    this.#noDeleteListener();
     this.#showConfirmationDialog();
+
+    this.#editBtnListener();
+    this.#cancelEditOptions();
   }
 
-  showNotesDetails(data) {
+  showNotesDetails(data, deviceObject) {
     this.#data = data;
     //display the view
     this._displayView();
-
+    this._backBtnHandler(deviceObject);
     //inserting the details into the view
 
     this.#notesConEl.innerHTML = "";
@@ -65,16 +74,65 @@ class DetailsView extends View {
     this._showMessage(this.#successMessage, true);
   }
 
-  #noDeleteHandler() {
+  #noDeleteListener() {
     this.#noDeleteBtnEl.addEventListener(
       "click",
       this.#toggleDelOptionCon.bind(this)
     );
   }
 
+  //edit note
+  #editBtnListener() {
+    this.#editBtn.addEventListener(
+      "click",
+      this.#editBtnClickHandler.bind(this)
+    );
+  }
+
+  #editBtnClickHandler() {
+    const inputDescription = this._parentElement.querySelector(
+      ".details-note-input-description"
+    );
+    const inputAmount = this._parentElement.querySelector(
+      ".details-note-input-amount"
+    );
+
+    this.#toggleEditOptionCon();
+    this.#toggleInputsActive(inputDescription, inputAmount);
+  }
+
+  #toggleInputsActive(descEl, amountEl, toggle = true) {
+    if (toggle) {
+      descEl.removeAttribute("readonly");
+      amountEl.removeAttribute("readonly");
+    } else {
+      descEl.setAttribute("readonly", "");
+      amountEl.setAttribute("readonly", "");
+    }
+  }
+
+  #cancelEditOptions() {
+    this.#editCancelBtn.addEventListener(
+      "click",
+      this.#toggleEditOptionCon.bind(this)
+    );
+  }
+
   #toggleDelOptionCon() {
-    this.#delParentConEl.classList.toggle("flex");
+    this.#optionsConEl.classList.toggle(this._variables.hideClass);
     this.#delOptConEl.classList.toggle(this._variables.hideClass);
+  }
+  #toggleEditOptionCon() {
+    this.#optionsConEl.classList.toggle(this._variables.hideClass);
+    this.#editOptConEl.classList.toggle(this._variables.hideClass);
+  }
+  _resetAllOptions() {
+    //reset del options
+    this.#optionsConEl.classList.remove(this._variables.hideClass);
+    this.#delOptConEl.classList.add(this._variables.hideClass);
+
+    this.#optionsConEl.classList.remove(this._variables.hideClass);
+    this.#editOptConEl.classList.add(this._variables.hideClass);
   }
 
   #generateDetailsContent({
