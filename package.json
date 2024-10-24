@@ -20,7 +20,9 @@
     "@capacitor/core": "^6.1.2",
     "@capacitor/preferences": "^6.0.2",
     "@capacitor/toast": "^6.0.2",
-    "@ionic/pwa-elements": "^3.3.0"
+    "@ionic/pwa-elements": "^3.3.0",
+    "nanoid": "^5.0.7",
+    "timeago.js": "^4.0.0-beta.3"
   },
   "devDependencies": {
     "@capacitor/cli": "latest",

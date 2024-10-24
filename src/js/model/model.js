@@ -16,7 +16,8 @@ export const getNoteData = async function () {
 export const getNoteById = async function (id) {
   try {
     const notesData = await databaseModel.getDb(NOTES_DB_KEY);
-    return notesData.find((entry) => entry.id === +id);
+
+    return notesData.find((entry) => entry.id === id);
   } catch (error) {
     throw new Error(error);
   }

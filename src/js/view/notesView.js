@@ -1,4 +1,8 @@
-import { deleteById, insertToElement } from "../configandHelper/helper";
+import {
+  deleteById,
+  insertToElement,
+  timeAgo,
+} from "../configandHelper/helper";
 import View from "./view";
 
 class NotesView extends View {
@@ -152,7 +156,7 @@ class NotesView extends View {
         ? "content-list-debit"
         : "content-list-credit"
     } content-list" data-id="${id}">
-     <p class="content-date">1d</p>
+     <p class="content-date">${timeAgo(timestamp)}</p>
      <p class="notes-content-title content-title">${description}</p>
      <p class="notes-content-amount content-amount">(₦)${amount}</p>
     </article>`;

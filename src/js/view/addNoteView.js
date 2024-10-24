@@ -1,4 +1,4 @@
-import { upperFistChar } from "../configandHelper/helper";
+import { generateId, upperFistChar } from "../configandHelper/helper";
 import notesView from "./notesView";
 import View from "./view";
 
@@ -46,7 +46,13 @@ class AddNoteView extends View {
     }
   }
 
-  generateNoteData(descEl, amountEl, type, id, updateHistory = undefined) {
+  generateNoteData(
+    descEl,
+    amountEl,
+    type,
+    id = generateId(),
+    updateHistory = []
+  ) {
     return {
       description: upperFistChar(descEl.value),
       amount: amountEl.value.trim(),
@@ -73,8 +79,7 @@ class AddNoteView extends View {
       this.#data = this.generateNoteData(
         this.#descriptionInputEl,
         this.#amountInputEl,
-        this.#typeInputEl,
-        Date.now()
+        this.#typeInputEl
       );
 
       console.log(this.#data);

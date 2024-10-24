@@ -57,7 +57,7 @@
 }
 .content-list {
   display: grid;
-  grid-template-columns: 48px 2fr 68px;
+  grid-template-columns: 50px 2fr 100px;
   gap: 10px;
   border-bottom: 1px solid var(--color-eee);
   padding: 12px;
@@ -84,6 +84,10 @@
 }
 .content-main-title > span {
   margin: 5px;
+}
+.content-date {
+  word-wrap: break-word;
+  color: var(--primary-color);
 }
 .expand-note-icon {
   width: 1.2rem;
