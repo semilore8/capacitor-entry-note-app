@@ -22,6 +22,7 @@ class AddNoteView extends View {
 
   showViewHandler(deviceObject) {
     this._displayView();
+    this.#descriptionInputEl.focus();
     this._backBtnHandler(deviceObject);
   }
 
