@@ -28,15 +28,32 @@ const deviceNavigationController = function () {
   );
 };
 
+//handle adding new note
+const addNewNoteController = function () {
+  //show add note view
+  notesView.plusBtnClickHandler(
+    addNoteView.showViewHandler.bind(addNoteView, deviceObject)
+  );
+};
+
 //show all notes
 const mainViewController = function () {
   try {
     notesView.appLoadedHandler(Model.getNoteData);
-
     //show  view notes  and notes details
     notesView.noteClickListener(noteClickHandlerController);
   } catch (e) {
     notesView._showMessage(e);
+  }
+};
+
+//add note view controller
+const addNoteViewController = async function () {
+  try {
+    //save notes
+    addNoteView.saveBtnClickHandler(Model.saveNoteData);
+  } catch (e) {
+    addNoteView._showMessage(e);
   }
 };
 
@@ -48,26 +65,20 @@ const noteClickHandlerController = async function (id) {
   }
 };
 
+const saveEditNoteController = function () {
+  detailsView.saveBtnListener(Model.updateNoteById);
+};
+
 const deleteNoteController = function () {
   detailsView.deleteNoteListener(Model.deleteNote);
 };
 
-//add note view controller
-const addNoteViewController = async function () {
-  try {
-    //show add note view
-    addNoteView.showView(deviceObject);
-    //save notes
-    addNoteView.saveBtnClickHandler(Model.saveNoteData);
-  } catch (e) {
-    addNoteView._showMessage(e);
-  }
-};
-
 const init = function () {
+  addNewNoteController();
   mainViewController();
   addNoteViewController();
   deleteNoteController();
+  saveEditNoteController();
   deviceNavigationController();
 };
 

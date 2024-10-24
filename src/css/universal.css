@@ -1,6 +1,3 @@
-
-
-
 /* //no scroll class  */
 .no-scroll {
   overflow: hidden;
@@ -12,7 +9,7 @@
 }
 
 /* // mini icons*/
-.mini-icon{
+.mini-icon {
   width: 20px;
   margin-right: 4px;
 }
@@ -21,7 +18,6 @@
   width: 50px;
   animation: 2s loaderAnimate linear infinite;
 }
-
 
 @keyframes loaderAnimate {
   0% {
@@ -45,11 +41,25 @@
   right: 0;
 }
 
+/* .// ellipse  */
+.ellipse {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: inherit;
+}
+
+/* //.rotate-180 */
+.rotate-180 {
+  transform: rotate(180deg);
+}
 /* //primary btn */
 .btn-primary {
   background-color: var(--primary-color);
   padding: 10px;
-  width: 150px;
+  min-width: max-content;
+  width: 50%;
+  max-width: 120px;
   color: var(--color-white);
   border: none;
   border-radius: 10px;

@@ -1,11 +1,14 @@
-import { generateId, upperFistChar } from "../configandHelper/helper";
+import {
+  escapeHtml,
+  generateId,
+  upperFistChar,
+} from "../configandHelper/helper";
 import notesView from "./notesView";
 import View from "./view";
 
 class AddNoteView extends View {
   _parentElement = document.querySelector(".add-note-view-con");
 
-  #addNoteBtn = document.querySelector(".add-note-btn");
   #descriptionInputEl = document.querySelector(".add-note-input-description");
   #amountInputEl = document.querySelector(".add-note-input-amount");
   #typeInputEl = document.querySelector(".add-note-type");
@@ -17,14 +20,7 @@ class AddNoteView extends View {
 
   #data = {};
 
-  showView(deviceObject) {
-    this.#addNoteBtn.addEventListener(
-      "click",
-      this.#showViewHandler.bind(this, deviceObject)
-    );
-  }
-
-  #showViewHandler(deviceObject) {
+  showViewHandler(deviceObject) {
     this._displayView();
     this._backBtnHandler(deviceObject);
   }
@@ -54,7 +50,7 @@ class AddNoteView extends View {
     updateHistory = []
   ) {
     return {
-      description: upperFistChar(descEl.value),
+      description: upperFistChar(escapeHtml(descEl.value)),
       amount: amountEl.value.trim(),
       type: type.value,
       timestamp: new Date().toISOString(),
@@ -82,7 +78,6 @@ class AddNoteView extends View {
         this.#typeInputEl
       );
 
-      console.log(this.#data);
       handler(this.#data);
 
       //clear inputs fields

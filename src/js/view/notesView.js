@@ -8,6 +8,8 @@ import View from "./view";
 class NotesView extends View {
   _parentElement = document.querySelector(".main-content");
 
+  #addNoteBtn = document.querySelector(".add-note-btn");
+
   #debitConEl = document.querySelector(
     ".debit-notes-content-con .content-container"
   );
@@ -17,9 +19,39 @@ class NotesView extends View {
   #creditEmptyNoteEl = this.#creditConEl.querySelector(".empty-note");
   #debitEmptyNoteEl = this.#debitConEl.querySelector(".empty-note");
 
+  #expandDebitBtn = document.querySelector(".expand-debit-icon");
+  #expandCreditBtn = document.querySelector(".expand-credit-icon");
+
   #data;
   #debitData;
   #creditData;
+
+  constructor() {
+    super();
+    this.#expandBtnListener();
+  }
+  plusBtnClickHandler(handler) {
+    this.#addNoteBtn.addEventListener("click", handler);
+  }
+  #expandBtnListener() {
+    this.#expandDebitBtn.addEventListener(
+      "click",
+      this.#expandNotesCon.bind(this, this.#debitConEl, this.#expandDebitBtn)
+    );
+    this.#expandCreditBtn.addEventListener(
+      "click",
+      this.#expandNotesCon.bind(this, this.#creditConEl, this.#expandCreditBtn)
+    );
+  }
+
+  #expandNotesCon(conEl, expandBtn) {
+    conEl.classList.toggle(this._variables.hideClass);
+    expandBtn.classList.toggle("rotate-180");
+
+    conEl.parentElement
+      .querySelector(".expand-help")
+      .classList.toggle(this._variables.hideClass);
+  }
 
   #generateCreditAndDebitHtml(debitData, creditData) {
     const debitHtml = debitData.map((entry) =>
@@ -134,6 +166,15 @@ class NotesView extends View {
     else this.#generateEmptyNoteHtml(this.#creditConEl, this.#creditData);
   }
 
+  updateNoteInViw(data) {
+    const updateListEl = this.#getElementByDataset(data.id);
+
+    updateListEl.classList.add("update-note");
+
+    updateListEl.querySelector(".content-title").textContent = data.description;
+    updateListEl.querySelector(".content-amount").textContent = data.amount;
+  }
+
   #generateEmptyNoteHtml(element, data) {
     const html = `<article class="empty-note-text">No notes yet,
      click the + icon to add a new note</article>`;
@@ -157,8 +198,8 @@ class NotesView extends View {
         : "content-list-credit"
     } content-list" data-id="${id}">
      <p class="content-date">${timeAgo(timestamp)}</p>
-     <p class="notes-content-title content-title">${description}</p>
-     <p class="notes-content-amount content-amount">(₦)${amount}</p>
+     <p class="notes-content-title content-title ellipse">${description}</p>
+     <p class="notes-content-amount content-amount ellipse">(₦)${amount}</p>
     </article>`;
   }
 }

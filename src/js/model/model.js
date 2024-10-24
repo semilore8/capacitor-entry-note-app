@@ -49,3 +49,19 @@ export const deleteNote = async function (id) {
     throw new Error(e);
   }
 };
+
+//update note by id
+export const updateNoteById = async function (data) {
+  try {
+    const allNotes = await databaseModel.getDb(NOTES_DB_KEY);
+    const selectedEntry = allNotes.find((entry) => entry.id === data.id);
+
+    selectedEntry.description = data.description;
+    selectedEntry.amount = data.amount;
+    selectedEntry.updateHistory = data.updateHistory;
+
+    databaseModel.setDb(NOTES_DB_KEY, JSON.stringify(allNotes));
+  } catch (error) {
+    throw new Error(error);
+  }
+};

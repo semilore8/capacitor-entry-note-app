@@ -64,10 +64,10 @@
 
 /* //details view  */
 .details-credit {
-  border-left: 2px solid #0d471a;
+  border-left: 2px solid var(--color-green);
 }
 .details-debit {
-  border-left: 2px solid #d93333;
+  border-left: 2px solid var(--color-red);
 }
 
 .details-type-date {
@@ -119,23 +119,34 @@
   letter-spacing: 2px;
 }
 .delete-yes-btn {
-  background-color: #d93333;
+  background-color: var(--color-red);
 }
 .delete-note-btn {
-  background-color: #d93333;
+  background-color: var(--color-red);
 }
-.details-note-edit-options{
+.details-note-edit-options {
   width: 100%;
   display: flex;
   justify-content: space-around;
   margin-top: 25px;
 }
 
+.details-note-date-update {
+  text-align: right;
+  padding: 20px;
+}
+.update-history-labal {
+  font-weight: 700;
+}
 
+article.expand-help {
+  text-align: center;
+  color: var(--primary-color);
+}
 
 /* ///////////////////////////////////////
  */
- /* //hide class */
+/* //hide class */
 .hide {
   display: none;
 }

@@ -16,7 +16,7 @@ const deleteById = function (array, delId) {
   return array.splice(delIndex, 1);
 };
 
-const timeAgo = function (timestamp) {
+const timeAgo = function (timestamp, full = false) {
   const [day, dateType] = format(timestamp).split(" ");
   const dateFormat = new Date(timestamp);
 
@@ -26,19 +26,35 @@ const timeAgo = function (timestamp) {
   // prettier-ignore
   const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sept","Oct","Nov","Dec",];
 
+  if (full || yearsExceptions.includes(dateType))
+    return dateFormat.toLocaleDateString();
+
   if (exceptions.includes(dateType))
     return `${months[dateFormat.getMonth()]} ${dateFormat.getDate()}`;
-
-  if (yearsExceptions.includes(dateType))
-    return dateFormat.toLocaleDateString();
 
   if (dateType === "now") return "now";
 
   return day.concat(dateType.at(0));
 };
 
-const generateId = () => {
+const generateId = function () {
   return nanoid();
 };
 
-export { upperFistChar, insertToElement, deleteById, timeAgo, generateId };
+const escapeHtml = function (unsafe) {
+  return unsafe
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+};
+
+export {
+  upperFistChar,
+  insertToElement,
+  deleteById,
+  timeAgo,
+  generateId,
+  escapeHtml,
+};

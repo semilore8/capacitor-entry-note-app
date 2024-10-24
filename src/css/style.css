@@ -4,6 +4,8 @@
   --color-white: #ffffff;
   --primary-color: #333;
   --color-black: #000;
+  --color-red: rgb(181, 18, 18);
+  --color-green: #0d471a;
 }
 
 @font-face {
@@ -63,11 +65,11 @@
   padding: 12px;
 }
 .content-list-debit {
-  border-left: 2px solid #d93333;
+  border-left: 2px solid var(--color-red);
   margin-bottom: 12px;
 }
 .content-list-credit {
-  border-left: 2px solid #0d471a;
+  border-left: 2px solid var(--color-green);
   margin-bottom: 12px;
 }
 .content-list > img {
@@ -147,5 +149,19 @@
     opacity: 0;
     scale: 0;
     display: none;
+  }
+}
+
+.update-note {
+  animation: 1s fadeIn linear;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
   }
 }

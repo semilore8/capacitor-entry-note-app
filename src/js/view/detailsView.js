@@ -1,4 +1,10 @@
-import { insertToElement, upperFistChar } from "../configandHelper/helper";
+import {
+  escapeHtml,
+  insertToElement,
+  timeAgo,
+  upperFistChar,
+} from "../configandHelper/helper";
+import addNoteView from "./addNoteView";
 import notesView from "./notesView";
 import View from "./view";
 
@@ -8,6 +14,7 @@ class DetailsView extends View {
   #notesConEl = this._parentElement.querySelector(".details-note-view-content");
   #noDeleteBtnEl = document.querySelector(".delete-no-note-btn");
   #editBtn = this._parentElement.querySelector(".edit-note-btn");
+  #saveEditBtn = this._parentElement.querySelector(".edit-save-btn");
   #editCancelBtn = this._parentElement.querySelector(".edit-cancel-note-btn");
   #deleteBtn = this._parentElement.querySelector(".delete-note-btn");
   #yesDeleteBtn = this._parentElement.querySelector(".delete-yes-btn");
@@ -18,9 +25,17 @@ class DetailsView extends View {
     ".details-note-edit-options"
   );
 
+  #editInputDescEl;
+  #editInputAmountEl;
+
   #optionsConEl = this._parentElement.querySelector(".details-note-options");
 
-  #successMessage = "Note deleted";
+  #messages = {
+    delete: "Note deleted",
+    edit: "Note edited successfully",
+    invalid: "Input a valid description and amount!",
+    error: "An error occurred",
+  };
   #data = {};
 
   constructor() {
@@ -71,7 +86,7 @@ class DetailsView extends View {
     //delete note from the ui
     notesView.deleteNoteInView(this.#data);
 
-    this._showMessage(this.#successMessage, true);
+    this._showMessage(this.#messages.delete, true);
   }
 
   #noDeleteListener() {
@@ -90,32 +105,82 @@ class DetailsView extends View {
   }
 
   #editBtnClickHandler() {
-    const inputDescription = this._parentElement.querySelector(
+    this.#editInputDescEl = this._parentElement.querySelector(
       ".details-note-input-description"
     );
-    const inputAmount = this._parentElement.querySelector(
+    this.#editInputAmountEl = this._parentElement.querySelector(
       ".details-note-input-amount"
     );
-
     this.#toggleEditOptionCon();
-    this.#toggleInputsActive(inputDescription, inputAmount);
+    this.#toggleInputsActive();
   }
 
-  #toggleInputsActive(descEl, amountEl, toggle = true) {
-    if (toggle) {
-      descEl.removeAttribute("readonly");
-      amountEl.removeAttribute("readonly");
+  #toggleInputsActive(active = true) {
+    if (active) {
+      this.#editInputAmountEl.focus();
+      this.#editInputDescEl.removeAttribute("readonly");
+      this.#editInputAmountEl.removeAttribute("readonly");
     } else {
-      descEl.setAttribute("readonly", "");
-      amountEl.setAttribute("readonly", "");
+      this.#editInputDescEl.value = this.#data.description;
+      this.#editInputAmountEl.value = this.#data.amount;
+
+      this.#editInputDescEl.setAttribute("readonly", "");
+      this.#editInputAmountEl.setAttribute("readonly", "");
     }
   }
 
   #cancelEditOptions() {
     this.#editCancelBtn.addEventListener(
       "click",
-      this.#toggleEditOptionCon.bind(this)
+      function () {
+        this.#toggleInputsActive(false);
+        this.#toggleEditOptionCon();
+      }.bind(this)
     );
+  }
+
+  //save the edited note
+  saveBtnListener(handler) {
+    this.#saveEditBtn.addEventListener(
+      "click",
+      this.#validateAndSaveEdits.bind(this, handler)
+    );
+  }
+
+  async #validateAndSaveEdits(handler) {
+    try {
+      if (
+        !(await addNoteView.validateNoteInputs(
+          this.#editInputDescEl,
+          this.#editInputAmountEl,
+          this.#messages.invalid
+        ))
+      )
+        return;
+
+      this.#data.updateHistory.push({
+        description: upperFistChar(escapeHtml(this.#editInputDescEl.value)),
+        amount: this.#editInputAmountEl.value.trim(),
+        timestamp: new Date().toISOString(),
+      });
+
+      const editObj = {
+        description: upperFistChar(escapeHtml(this.#editInputDescEl.value)),
+        amount: this.#editInputAmountEl.value.trim(),
+        id: this.#data.id,
+        updateHistory: this.#data.updateHistory,
+      };
+
+      handler(editObj);
+
+      this._resetAllOptions();
+
+      notesView.updateNoteInViw(editObj);
+
+      this._hideView();
+    } catch (e) {
+      this._showMessage(this.#messages.error);
+    }
   }
 
   #toggleDelOptionCon() {
@@ -135,12 +200,24 @@ class DetailsView extends View {
     this.#editOptConEl.classList.add(this._variables.hideClass);
   }
 
+  #generateUpdateHistoryHtml(updateArr) {
+    return updateArr
+      .map(
+        (update) =>
+          `<li>${update.description} | ₦${update.amount} | (${timeAgo(
+            update.timestamp
+          )}) ${timeAgo(update.timestamp, true)}</li>`
+      )
+      .reverse()
+      .join("\n");
+  }
+
   #generateDetailsContent({
     description,
     amount,
     type,
     timestamp,
-    updateTimeStamp,
+    updateHistory,
   }) {
     return `  
           <input
@@ -159,23 +236,28 @@ class DetailsView extends View {
           />
 
           <article class="details-type-date">
+           
+
             <p class="details-note-type" aria-readonly="true">${upperFistChar(
               type
             )}</p>
-           
+
+            <p class="details-note-date-created" aria-readonly="true">
+              Created in ${timeAgo(timestamp)} (${timeAgo(timestamp, true)})
+            </p>
+
             ${
-              updateTimeStamp
+              updateHistory.length !== this._variables.zero
                 ? `
-              <p class="details-note-date-update" aria-readonly="true">
-              Updated on ${updateTimeStamp}
-              </p>
+                <ul class="details-note-date-update">
+                  <li class='update-history-labal'>Update History </li>
+                  ${this.#generateUpdateHistoryHtml(updateHistory)}
+               </ul>
             `
                 : ""
             }
             
-            <p class="details-note-date-created" aria-readonly="true">
-              Created on ${timestamp}
-            </p>
+          
           </article>
     `;
   }
