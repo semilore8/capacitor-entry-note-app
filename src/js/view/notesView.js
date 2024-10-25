@@ -82,16 +82,24 @@ class NotesView extends View {
 
   #updateTotalEl({ totalDebit, totalCredit }) {
     if (totalDebit === 0)
-      return this.#debitTotalEl.parentElement.classList.add(
+      this.#debitTotalEl.parentElement.classList.add(this._variables.hideClass);
+    else {
+      this.#debitTotalEl.textContent = totalDebit.toFixed(2);
+      this.#debitTotalEl.parentElement.classList.remove(
         this._variables.hideClass
       );
-    this.#debitTotalEl.textContent = totalDebit.toFixed(2);
+    }
 
     if (totalCredit === 0)
-      return this.#creditTotalEl.parentElement.classList.add(
+      this.#creditTotalEl.parentElement.classList.add(
         this._variables.hideClass
       );
-    this.#creditTotalEl.textContent = totalCredit.toFixed(2);
+    else {
+      this.#creditTotalEl.textContent = totalCredit.toFixed(2);
+      this.#creditTotalEl.parentElement.classList.remove(
+        this._variables.hideClass
+      );
+    }
   }
 
   async appLoadedHandler(totalSumDataHandler, handler) {
@@ -151,6 +159,7 @@ class NotesView extends View {
 
       //show the total amount
       this.#totalSumData.totalDebit += +data.amount;
+
       this.#updateTotalEl(this.#totalSumData);
 
       this.#hideEmptyNoteEl(this.#debitConEl);
