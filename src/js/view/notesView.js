@@ -22,9 +22,13 @@ class NotesView extends View {
   #expandDebitBtn = document.querySelector(".expand-debit-icon");
   #expandCreditBtn = document.querySelector(".expand-credit-icon");
 
+  #debitTotalEl = document.querySelector(".total-debit-out");
+  #creditTotalEl = document.querySelector(".total-credit-out");
+
   #data;
   #debitData;
   #creditData;
+  #totalSumData;
 
   constructor() {
     super();
@@ -76,8 +80,23 @@ class NotesView extends View {
     insertToElement(element, this._variables.beforeEnd, html.join("\n"));
   }
 
-  async appLoadedHandler(handler) {
+  #updateTotalEl({ totalDebit, totalCredit }) {
+    if (totalDebit === 0)
+      return this.#debitTotalEl.parentElement.classList.add(
+        this._variables.hideClass
+      );
+    this.#debitTotalEl.textContent = totalDebit.toFixed(2);
+
+    if (totalCredit === 0)
+      return this.#creditTotalEl.parentElement.classList.add(
+        this._variables.hideClass
+      );
+    this.#creditTotalEl.textContent = totalCredit.toFixed(2);
+  }
+
+  async appLoadedHandler(totalSumDataHandler, handler) {
     this.#data = await handler();
+    this.#totalSumData = await totalSumDataHandler();
 
     //filter and generate the credit and debit note html
     this.#debitData = this.#data.filter(
@@ -99,6 +118,9 @@ class NotesView extends View {
     this.#insertNoteList(debitHtml, this.#debitConEl);
     //render debit list to debitEl
     this.#insertNoteList(creditHtml, this.#creditConEl);
+
+    //render the debit and credit total
+    this.#updateTotalEl(this.#totalSumData);
   }
 
   noteClickListener(handler) {
@@ -127,6 +149,10 @@ class NotesView extends View {
       //push the new data to debit
       this.#debitData.push(data);
 
+      //show the total amount
+      this.#totalSumData.totalDebit += +data.amount;
+      this.#updateTotalEl(this.#totalSumData);
+
       this.#hideEmptyNoteEl(this.#debitConEl);
     } else {
       insertToElement(
@@ -137,6 +163,10 @@ class NotesView extends View {
 
       //push the new data to credit
       this.#creditData.push(data);
+
+      //show the total amount
+      this.#totalSumData.totalCredit += +data.amount;
+      this.#updateTotalEl(this.#totalSumData);
 
       this.#hideEmptyNoteEl(this.#creditConEl);
     }
@@ -157,22 +187,32 @@ class NotesView extends View {
     this.#getElementByDataset(data.id).classList.add("delete-note");
 
     // del note from data;
-    if (data.type === this._variables.debit)
+    if (data.type === this._variables.debit) {
       deleteById(this.#debitData, data.id);
-    else deleteById(this.#creditData, data.id);
-
-    if (data.type === this._variables.debit)
       this.#generateEmptyNoteHtml(this.#debitConEl, this.#debitData);
-    else this.#generateEmptyNoteHtml(this.#creditConEl, this.#creditData);
+
+      this.#totalSumData.totalDebit -= +data.amount;
+      return this.#updateTotalEl(this.#totalSumData);
+    }
+
+    deleteById(this.#creditData, data.id);
+    this.#generateEmptyNoteHtml(this.#creditConEl, this.#creditData);
+
+    this.#totalSumData.totalCredit -= +data.amount;
+    this.#updateTotalEl(this.#totalSumData);
   }
 
-  updateNoteInViw(data) {
+  updateNoteInViw(data, totalSumData) {
     const updateListEl = this.#getElementByDataset(data.id);
 
     updateListEl.classList.add("update-note");
 
     updateListEl.querySelector(".content-title").textContent = data.description;
     updateListEl.querySelector(".content-amount").textContent = data.amount;
+
+    //update the total sum in view
+    this.#totalSumData = totalSumData;
+    this.#updateTotalEl(totalSumData);
   }
 
   #generateEmptyNoteHtml(element, data) {

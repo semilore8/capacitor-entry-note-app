@@ -39,7 +39,7 @@ const addNewNoteController = function () {
 //show all notes
 const mainViewController = function () {
   try {
-    notesView.appLoadedHandler(Model.getNoteData);
+    notesView.appLoadedHandler(Model.getTotalNotesSum, Model.getNoteData);
     //show  view notes  and notes details
     notesView.noteClickListener(noteClickHandlerController);
   } catch (e) {

@@ -171,11 +171,11 @@ class DetailsView extends View {
         updateHistory: this.#data.updateHistory,
       };
 
-      handler(editObj);
+      const totalSumData = await handler(editObj);
 
       this._resetAllOptions();
 
-      notesView.updateNoteInViw(editObj);
+      notesView.updateNoteInViw(editObj, totalSumData);
 
       this._hideView();
     } catch (e) {

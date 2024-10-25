@@ -61,7 +61,30 @@ export const updateNoteById = async function (data) {
     selectedEntry.updateHistory = data.updateHistory;
 
     databaseModel.setDb(NOTES_DB_KEY, JSON.stringify(allNotes));
+
+    // return total
+    return getTotalNotesSum();
   } catch (error) {
     throw new Error(error);
+  }
+};
+
+//get total notes output
+
+export const getTotalNotesSum = async function () {
+  try {
+    const notesData = await getNoteData();
+
+    const totalDebit = notesData
+      .filter((entry) => entry.type === "debit")
+      .reduce((acc, entry) => acc + Number(entry.amount), 0);
+
+    const totalCredit = notesData
+      .filter((entry) => entry.type === "credit")
+      .reduce((acc, entry) => acc + Number(entry.amount), 0);
+
+    return { totalDebit, totalCredit };
+  } catch (e) {
+    throw new Error(e);
   }
 };
