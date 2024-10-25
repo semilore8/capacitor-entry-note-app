@@ -158,6 +158,13 @@ class DetailsView extends View {
       )
         return;
 
+      if (this.#data.updateHistory.length === this._variables.zero)
+        this.#data.updateHistory.push({
+          description: this.#data.description,
+          amount: this.#data.amount,
+          timestamp: this.#data.timestamp,
+        });
+
       this.#data.updateHistory.push({
         description: upperFistChar(escapeHtml(this.#editInputDescEl.value)),
         amount: this.#editInputAmountEl.value.trim(),
@@ -225,6 +232,7 @@ class DetailsView extends View {
             class="details-note-input-description input-underline"
             placeholder="Description"
             readonly="true"
+            maxlength="140"
             value = "${description}"
           />
           <input

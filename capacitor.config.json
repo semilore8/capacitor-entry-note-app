@@ -1,7 +1,6 @@
 {
-  "appId": "come.kakaEmmanuelDg.entryNote",
+  "appId": "come.kakaEmmanuel.entryNote",
   "appName": "entryNote",
   "webDir": "dist",
-  "plugins": {
-  }
+  "plugins": {}
 }

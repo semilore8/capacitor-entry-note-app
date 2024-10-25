@@ -81,7 +81,7 @@ class NotesView extends View {
   }
 
   #updateTotalEl({ totalDebit, totalCredit }) {
-    if (totalDebit === 0)
+    if (totalDebit === this._variables.zero)
       this.#debitTotalEl.parentElement.classList.add(this._variables.hideClass);
     else {
       this.#debitTotalEl.textContent = totalDebit.toFixed(2);
@@ -90,7 +90,7 @@ class NotesView extends View {
       );
     }
 
-    if (totalCredit === 0)
+    if (totalCredit === this._variables.zero)
       this.#creditTotalEl.parentElement.classList.add(
         this._variables.hideClass
       );
@@ -217,7 +217,9 @@ class NotesView extends View {
     updateListEl.classList.add("update-note");
 
     updateListEl.querySelector(".content-title").textContent = data.description;
-    updateListEl.querySelector(".content-amount").textContent = data.amount;
+    updateListEl.querySelector(
+      ".content-amount"
+    ).textContent = `(₦)${data.amount}`;
 
     //update the total sum in view
     this.#totalSumData = totalSumData;
