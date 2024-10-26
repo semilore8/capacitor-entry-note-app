@@ -1,4 +1,4 @@
-package come.emmanueldg.cnote;
+package come.kakaEmmanuel.entryNote;
 
 import com.getcapacitor.BridgeActivity;
 

@@ -1,10 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace "come.emmanueldg.cnote"
+    namespace "come.kakaEmmanuel.entryNote"
     compileSdk rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "come.emmanueldg.cnote"
+        applicationId "come.kakaEmmanuel.entryNote"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
