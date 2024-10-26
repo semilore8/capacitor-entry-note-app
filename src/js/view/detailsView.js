@@ -60,6 +60,16 @@ class DetailsView extends View {
       this._variables.afterbegin,
       this.#generateDetailsContent(this.#data)
     );
+
+    console.log(this.#data.type === this._variables.credit);
+
+    if (this.#data.type === this._variables.credit) {
+      this.#notesConEl.classList.remove("details-debit");
+      this.#notesConEl.classList.add("details-credit");
+    } else {
+      this.#notesConEl.classList.add("details-debit");
+      this.#notesConEl.classList.remove("details-credit");
+    }
   }
 
   #showConfirmationDialog() {
